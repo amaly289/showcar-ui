@@ -13,7 +13,7 @@
   buttons                         buttonBob, buttonRoss, buttonGhost, buttonBobDisabled, buttonRossDisabled, buttonGhostDisabled
 
 = Main section =
-  @on *
+  @on desktop
     &buttons:
       height ~40px
 

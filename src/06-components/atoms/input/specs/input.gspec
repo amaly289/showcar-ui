@@ -1,13 +1,34 @@
 @objects
-  inputText           input[type=text].sc-input
-  inputTextarea       textarea.sc-input
-  container             #separate-content
+  inputText               input[type=text].sc-input
+  inputTextarea           textarea.sc-input
+
+  checkboxInput           .sc-input[type=checkbox]
+  checkboxLabel           .sc-input[type=checkbox] ~ label
+
+  radioButtonInput        .sc-input[type=radio]
+  radioButtonLabel        .sc-input[type=radio] ~ label
+
+  container               #separate-content
 
 = Main section =
-  @on *
+  @on desktop
     inputText:
       height 40px
       width 100 % of container/width
 
     inputTextarea:
       width 100 % of container/width
+
+    checkboxInput:
+      absent
+
+    checkboxLabel:
+      visible
+      height 24px
+
+    radioButtonInput:
+      absent
+
+    radioButtonLabel:
+      visible
+      height 24px
