@@ -1,0 +1,15 @@
+@objects
+  dropdownInput               custom-dropdown
+  dropdownLabelShown          custom-dropdown div:first-child
+  dropdownLabelHidden         custom-dropdown div:last-child
+
+= Main section =
+  @on desktop
+    dropdownInput:
+      height 40px
+
+    dropdownLabelShown:
+      visible
+
+    dropdownLabelHidden:
+      absent
