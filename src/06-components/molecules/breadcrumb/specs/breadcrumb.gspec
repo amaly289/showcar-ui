@@ -1,0 +1,19 @@
+@objects
+  firstBreadcrumb   .sc-breadcrumbs li a
+  lastBreadcrumb    .sc-breadcrumbs li:last-child a
+
+= Main section =
+
+  @on tablet
+    firstBreadcrumb, lastBreadcrumb:
+      visible
+
+    firstBreadcrumb:
+      left-of lastBreadcrumb
+
+  @on mobile
+    firstBreadcrumb:
+      absent
+
+    lastBreadcrumb:
+      visible
