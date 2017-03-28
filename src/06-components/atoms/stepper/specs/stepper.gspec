@@ -1,0 +1,21 @@
+@objects
+  container                       .sc-stepper
+  stepperButtonIncrease           .sc-stepper-button-increment
+  stepperButtonDecrease           .sc-stepper-button-decrement
+  stepperInput                    .sc-stepper-input
+
+= Main section =
+  @on desktop
+    stepperButtonDecrease:
+      inside container ~0px left
+      left-of stepperInput ~0px
+
+    stepperButtonIncrease:
+      inside container ~0px right
+      right-of stepperInput ~0px
+
+    stepperInput:
+      text is "0"
+
+    &objects:
+      height 40px
