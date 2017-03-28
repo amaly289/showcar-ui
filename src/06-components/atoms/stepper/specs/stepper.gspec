@@ -4,6 +4,9 @@
   stepperButtonDecrease           .sc-stepper-button-decrement
   stepperInput                    .sc-stepper-input
 
+@groups
+    elements    container, stepperButtonIncrease, stepperButtonDecrease, stepperInput
+
 = Main section =
   @on desktop
     stepperButtonDecrease:
@@ -17,5 +20,5 @@
     stepperInput:
       text is "0"
 
-    &objects:
+    &elements:
       height 40px
