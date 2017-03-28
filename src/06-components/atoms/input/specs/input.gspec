@@ -20,14 +20,14 @@
       width 100 % of container/width
 
     checkboxInput:
-      absent
+      css opacity is: 0
 
     checkboxLabel:
       visible
       height 24px
 
     radioButtonInput:
-      absent
+      css opacity is: 0
 
     radioButtonLabel:
       visible
