@@ -1,0 +1,19 @@
+@objects
+  collapseMore             .sc-collapse-target.in
+  collapseLess             .sc-collapse-target:not(.in)
+  collapseContent          div .sc-collapse .sc-collapse-target
+  collapseToggle           a[data-target="#collapse"]
+  collapseToggleContent    #collapse
+
+= Main section =
+  @on desktop
+    collapseMore:
+      visible
+    collapseLess:
+      absent
+    collapseContent:
+      absent
+    collapseToggle:
+      visible
+    collapseContentToggle:
+      absent
