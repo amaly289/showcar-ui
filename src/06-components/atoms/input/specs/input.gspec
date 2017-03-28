@@ -10,6 +10,14 @@
 
   container               #separate-content
 
+@rule %{objectName} is not present
+    @if ${isVisible(objectName)}
+      ${objectName}:
+        css opacity is "0"
+    @else
+      ${objectName}:
+        absent
+
 = Main section =
   @on desktop
     inputText:
@@ -19,16 +27,14 @@
     inputTextarea:
       width 100 % of container/width
 
-    checkboxInput:
-      css opacity is: 0
-
     checkboxLabel:
       visible
       height 24px
 
-    radioButtonInput:
-      css opacity is: 0
-
     radioButtonLabel:
       visible
       height 24px
+
+    | checkboxInput is not present
+
+    | radioButtonInput is not present
