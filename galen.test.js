@@ -94,10 +94,12 @@ var specs = getSpecs().filter(function(value) {
 
 var drivers = {};
 
-afterTestSuite(function () {
-  for(browser in browsers) {
-    drivers[browser].quit();
-  }
+afterTest(function (testInfo) {
+    var driver = drivers[testInfo.name];
+    if (sauceEnabled) {
+        driver.executeScript("sauce:job-result=" + !testInfo.isFailed());
+    }
+    driver.quit();
 });
 
 testRetry(function (test, retryCount) {
@@ -109,33 +111,24 @@ testRetry(function (test, retryCount) {
     }
 });
 
-function getDriver(browser) {
-  if (drivers[browser.name] === undefined) {
-    drivers[browser.name] = createNewDriver(browser);
-  }
-  return drivers[browser.name];
-}
-
-function createNewDriver(browser) {
-  if(sauceEnabled) {
-      browser.desiredCapabilities['tunnel-identifier'] = tunnelIdentifier;
-      browser.desiredCapabilities['build'] = buildId;
-      browser.desiredCapabilities['public'] = 'public';
-      return createGridDriver(gridUrl, { desiredCapabilities: browser.desiredCapabilities });
-  } else {
-      return createDriver();
-  }
-}
-
 forAll(browsers, function (browser) {
     forAll(viewports, function (viewport) {
         forAll(specs, function (spec_path) {
             test('Test ' + spec_path.split('/').slice(-1)[0] + ' on ' + browser.name + ' ' + viewport.name, function (browser, viewport, spec_path) {
-              var testDocUrl = testUrl + '/docs/' + spec_path.split('/').slice(-4,-2).join('/');
-              var driver = getDriver(browser);
-              driver.get(testDocUrl);
-              resize(driver, viewport.size)
-              checkLayout(getDriver(browser), spec_path, [viewport.tags, browser.name]);
+                var driver;
+                var testDocUrl = testUrl + '/docs/' + spec_path.split('/').slice(-4,-2).join('/');
+                if(sauceEnabled) {
+                    browser.desiredCapabilities['tunnel-identifier'] = tunnelIdentifier;
+                    browser.desiredCapabilities['build'] = buildId;
+                    browser.desiredCapabilities['name'] = this.name;
+                    browser.desiredCapabilities['public'] = 'public';
+                    driver = createGridDriver(gridUrl, { size: viewport.size, desiredCapabilities: browser.desiredCapabilities });
+                    driver.get(testDocUrl);
+                } else {
+                    driver = createDriver(testDocUrl, viewport.size, browser.name);
+                }
+                drivers[this.name] = driver;
+                checkLayout(driver, spec_path, [viewport.tags, browser.name]);
             });
         });
     });
